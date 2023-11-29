@@ -4,16 +4,18 @@ import { ThemeContext } from "../../../utils/ThemeProvider";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { fetchUser } from "../../../utils/api";
-import { createStackNavigator } from '@react-navigation/stack';
+import { getStyles } from "../../../utils/styles";
+import { createStackNavigator } from "@react-navigation/stack";
 import SettingsScreen from "../Settings/SettingsScreen";
 const UserProfileStack = createStackNavigator();
 
 const UserProfileScreen = () => {
   const [user, setUser] = useState(null);
-  const [userAvatarUrl, setUserAvatarUrl] = useState('https://th.bing.com/th/id/OIP.KGdLPsiqGjKqCYuhzhmmWgHaEP?rs=1&pid=ImgDetMain'); 
+  const [userAvatarUrl, setUserAvatarUrl] = useState(null);
   const { theme } = useContext(ThemeContext);
   const navigation = useNavigation();
   const route = useRoute();
+  const styles = getStyles(theme);
 
   useEffect(() => {
     const username = route.params?.username;
@@ -23,31 +25,8 @@ const UserProfileScreen = () => {
         setUserAvatarUrl(userData.profile_image.large);
       });
     } else {
-
     }
   }, [route.params?.username]);
-
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: theme.colors.background,
-      alignItems: "center",
-      justifyContent: "center",
-    },
-    text: {
-      color: theme.colors.text,
-    },
-    image: {
-      width: 100,
-      height: 100,
-      borderRadius: 50,
-    },
-    button: {
-      position: "absolute",
-      top: 10,
-      right: 10,
-    },
-  });
 
   return (
     <View style={styles.container}>
@@ -58,12 +37,23 @@ const UserProfileScreen = () => {
         style={styles.button}
         onPress={() => navigation.navigate("SettingsScreen")}
       />
-      <Image source={{ uri: userAvatarUrl }} style={{ width: 100, height: 100 }} />
       {user && (
-        <>
-          <Text style={styles.text}>{user.name}</Text>
-          <Text style={styles.text}>{user.bio}</Text>
-        </>
+        <View style={styles.userInfo}>
+          <Text style={styles.username}>{user.username}</Text>
+          <View style={styles.profileInfo}>
+            <Image source={{ uri: userAvatarUrl }} style={styles.image} />
+            <View style={styles.stats}>
+              <View style={styles.stat}>
+                <Text style={styles.username}>{user.followers_count}</Text>
+                <Text style={styles.realName}>Followers</Text>
+              </View>
+              <View style={styles.stat}>
+                <Text style={styles.username}>{user.following_count}</Text>
+                <Text style={styles.realName}>Following</Text>
+              </View>
+            </View>
+          </View>
+        </View>
       )}
     </View>
   );
@@ -72,12 +62,16 @@ const UserProfileScreen = () => {
 const UserProfile = () => {
   return (
     <UserProfileStack.Navigator screenOptions={{ headerShown: false }}>
-      <UserProfileStack.Screen name="UserProfileScreen" component={UserProfileScreen} />
-      <UserProfileStack.Screen name="SettingsScreen" component={SettingsScreen} />
+      <UserProfileStack.Screen
+        name="UserProfileScreen"
+        component={UserProfileScreen}
+      />
+      <UserProfileStack.Screen
+        name="SettingsScreen"
+        component={SettingsScreen}
+      />
     </UserProfileStack.Navigator>
   );
 };
 
 export default UserProfile;
-
-
