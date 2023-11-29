@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
-шь
+
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import ImageCard from "../ImageCard/ImageCard";
 import { ThemeContext } from "../../../utils/ThemeProvider";
 import { fetchImages } from '../../../utils/api';
+import { FlatList } from "react-native";
 
 const Tab = createMaterialTopTabNavigator();
 

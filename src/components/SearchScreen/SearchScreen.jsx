@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { View, Text, TextInput, ScrollView, StyleSheet } from "react-native";
 import { ThemeContext } from "../../../utils/ThemeProvider";
 import ImageCard from "../ImageCard/ImageCard";
-import { fetchImages } from "../../../utils/api"; 
+import { fetchImages } from "../../../utils/api";
 
 export default function SearchScreen() {
   const { theme } = useContext(ThemeContext);
@@ -21,6 +21,7 @@ export default function SearchScreen() {
     container: {
       flex: 1,
       padding: 10,
+      paddingTop: 50,
       backgroundColor: theme.colors.background,
     },
     title: {
@@ -47,7 +48,6 @@ export default function SearchScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>SearchScreen</Text>
       <TextInput
         style={styles.input}
         placeholder="Search for images..."

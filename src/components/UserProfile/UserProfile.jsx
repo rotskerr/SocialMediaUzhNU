@@ -20,8 +20,7 @@ const UserProfileScreen = () => {
     if (username) {
       fetchUser(username).then((userData) => {
         setUser(userData);
-        setUserAvatarUrl(userData.profile_image.small);
-        console.log(userData); 
+        setUserAvatarUrl(userData.profile_image.large);
       });
     } else {
 

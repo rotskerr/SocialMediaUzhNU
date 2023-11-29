@@ -18,7 +18,7 @@ const ImageCard = ({ image }) => {
     <View style={styles.card}>
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate("UserProfile", { username: image.user.username })
+          navigation.navigate("UserProfileScreen", { username: image.user.username })
         }
       >
         <View style={styles.userContainer}>
