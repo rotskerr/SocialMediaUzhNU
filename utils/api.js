@@ -2,8 +2,7 @@
 import axios from "axios";
 
 const API_URL = "https://api.unsplash.com/";
-const API_KEY = "R8KbuV2CBPwRoF9oWXBHaXuTX8E0VMT7L2wn3CqVpbw"; // Замініть на ваш ключ API Unsplash
-
+const API_KEY = "R8KbuV2CBPwRoF9oWXBHaXuTX8E0VMT7L2wn3CqVpbw"; 
 export const fetchImages = async (query) => {
   try {
     const response = await axios.get(`${API_URL}search/photos`, {
@@ -12,7 +11,7 @@ export const fetchImages = async (query) => {
       },
       params: {
         query,
-        per_page: 50,
+        per_page: 200,
       },
     });
     return response.data.results;
@@ -29,6 +28,22 @@ export const fetchUser = async (username) => {
       },
     });
     
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+export const fetchUserPhotos = async (username) => {
+  try {
+    const response = await axios.get(`${API_URL}users/${username}/photos`, {
+      headers: {
+        Authorization: `Client-ID ${API_KEY}`,
+      },
+      params: {
+        per_page: 200,
+      },
+    });
+
     return response.data;
   } catch (error) {
     console.error(error);

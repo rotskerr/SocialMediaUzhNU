@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { ThemeContext } from "../../../utils/ThemeProvider";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { fetchUser } from "../../../utils/api";
-import { getStyles } from "../../../utils/styles";
 import { createStackNavigator } from "@react-navigation/stack";
 import SettingsScreen from "../Settings/SettingsScreen";
+import UserProfileHeader from "./UserProfileHeader";
+import UserPhotos from "./UserPhotos";
+
 const UserProfileStack = createStackNavigator();
 
 const UserProfileScreen = () => {
@@ -15,7 +17,6 @@ const UserProfileScreen = () => {
   const { theme } = useContext(ThemeContext);
   const navigation = useNavigation();
   const route = useRoute();
-  const styles = getStyles(theme);
 
   useEffect(() => {
     const username = route.params?.username;
@@ -24,9 +25,20 @@ const UserProfileScreen = () => {
         setUser(userData);
         setUserAvatarUrl(userData.profile_image.large);
       });
-    } else {
     }
   }, [route.params?.username]);
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: theme.colors.background,
+    },
+    settingsButton: {
+      position: "absolute",
+      top: 15,
+      right: 10,
+    },
+  });
 
   return (
     <View style={styles.container}>
@@ -34,26 +46,14 @@ const UserProfileScreen = () => {
         name="ios-settings"
         size={24}
         color={theme.colors.text}
-        style={styles.button}
+        style={styles.settingsButton}
         onPress={() => navigation.navigate("SettingsScreen")}
       />
       {user && (
-        <View style={styles.userInfo}>
-          <Text style={styles.username}>{user.username}</Text>
-          <View style={styles.profileInfo}>
-            <Image source={{ uri: userAvatarUrl }} style={styles.image} />
-            <View style={styles.stats}>
-              <View style={styles.stat}>
-                <Text style={styles.username}>{user.followers_count}</Text>
-                <Text style={styles.realName}>Followers</Text>
-              </View>
-              <View style={styles.stat}>
-                <Text style={styles.username}>{user.following_count}</Text>
-                <Text style={styles.realName}>Following</Text>
-              </View>
-            </View>
-          </View>
-        </View>
+        <>
+          <UserProfileHeader user={user} userAvatarUrl={userAvatarUrl} />
+          <UserPhotos username={user.username} />
+        </>
       )}
     </View>
   );

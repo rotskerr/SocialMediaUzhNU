@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { View, Text, TextInput, ScrollView, StyleSheet } from "react-native";
+import { View, Text, TextInput, ScrollView, StyleSheet, FlatList } from "react-native";
 import { ThemeContext } from "../../../utils/ThemeProvider";
 import ImageCard from "../ImageCard/ImageCard";
 import { fetchImages } from "../../../utils/api";
@@ -55,11 +55,11 @@ export default function SearchScreen() {
         value={query}
         onChangeText={setQuery}
       />
-      <ScrollView>
-        {images.map((image) => (
-          <ImageCard key={image.id} image={image} />
-        ))}
-      </ScrollView>
+      <FlatList
+        data={images}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => <ImageCard image={item} />}
+      />
     </View>
   );
 }
