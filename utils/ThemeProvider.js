@@ -9,13 +9,10 @@ export const ThemeProvider = ({ children }) => {
     colors: colorScheme === 'dark' ? {
       background: '#000000',
       text: '#ffffff',
-      // ...other dark theme colors
     } : {
       background: '#ffffff',
       text: '#000000',
-      // ...other light theme colors
     },
-    // ...other theme properties
   });
 
   const toggleTheme = async () => {
@@ -25,13 +22,10 @@ export const ThemeProvider = ({ children }) => {
       colors: newTheme === 'dark' ? {
         background: '#000000',
         text: '#ffffff',
-        // ...other dark theme colors
       } : {
         background: '#ffffff',
         text: '#000000',
-        // ...other light theme colors
       },
-      // ...other theme properties
     });
   };
 
@@ -43,13 +37,10 @@ export const ThemeProvider = ({ children }) => {
           colors: storedTheme === 'dark' ? {
             background: '#000000',
             text: '#ffffff',
-            // ...other dark theme colors
           } : {
             background: '#ffffff',
             text: '#000000',
-            // ...other light theme colors
           },
-          // ...other theme properties
         });
       }
     };

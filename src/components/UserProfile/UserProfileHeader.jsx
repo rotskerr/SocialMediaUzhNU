@@ -2,9 +2,9 @@ import React, { useContext } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import { Button } from "react-native-elements";
 import { ThemeContext } from "../../../utils/ThemeProvider";
-import { getStyles } from '../UserProfile/styles';
+import { getStyles } from "../UserProfile/styles";
 
-const UserProfileHeader = ({ user, userAvatarUrl }) => {
+const UserProfileHeader = ({ user, userAvatarUrl, isCurrentUser }) => {
   const { theme } = useContext(ThemeContext);
 
   const styles = getStyles(theme);
@@ -30,14 +30,20 @@ const UserProfileHeader = ({ user, userAvatarUrl }) => {
         </View>
       </View>
       <View style={styles.buttonGroup}>
-        <Button title="Follow" buttonStyle={styles.button} type="outline" />
-        <Button title="Message" buttonStyle={styles.button} />
+        {isCurrentUser ? (
+          <View style={styles.Editbutton}>
+            <Button title="Edit Profile" buttonStyle={{ width: "100%" }} />
+          </View>
+        ) : (
+          <>
+            <Button title="Follow" buttonStyle={styles.button} type="outline" />
+            <Button title="Message" buttonStyle={styles.button} />
+          </>
+        )}
       </View>
       <Text style={styles.bio}>{user.bio}</Text>
     </View>
   );
 };
-
-
 
 export default UserProfileHeader;

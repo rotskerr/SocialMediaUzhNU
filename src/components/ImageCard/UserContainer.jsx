@@ -5,7 +5,7 @@ import { View, Image, Text, TouchableOpacity } from "react-native";
  const UserContainer = ({ user, userAvatarUrl, styles, navigation }) => (
     <TouchableOpacity
       onPress={() =>
-        navigation.navigate("UserProfileScreen", { username: user.username })
+        navigation.navigate("UserProfileScreen", { username: user.username, isCurrentUser: false })
       }
     >
       <View style={styles.userContainer}>

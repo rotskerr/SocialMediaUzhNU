@@ -3,14 +3,15 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { ThemeContext } from "../../../utils/ThemeProvider";
 import { Ionicons } from "@expo/vector-icons";
 import HomePage from "../HomePage/HomePage";
-import UserProfile from "../UserProfile/UserProfile";
 import SearchScreen from "../SearchScreen/SearchScreen";
+import { TouchableOpacity } from "react-native";
+import MyProfile from "../UserProfile/MyProfile";
+import { fetchMe } from "../../../utils/api";
 
 const Tab = createBottomTabNavigator();
 
 const MyTabs = () => {
   const { theme } = useContext(ThemeContext);
-
   return (
     <Tab.Navigator
       headerMode="none"
@@ -33,7 +34,7 @@ const MyTabs = () => {
           ),
         }}
       />
-       <Tab.Screen
+      <Tab.Screen
         name="SearchScreen"
         component={SearchScreen}
         options={{
@@ -44,12 +45,20 @@ const MyTabs = () => {
       />
       <Tab.Screen
         name="UserProfile"
-        component={UserProfile}
+        component={MyProfile}
         options={{
           headerShown: false,
-
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="person" color={color} size={size} />
+          ),
+          tabBarButton: (props) => (
+            <TouchableOpacity
+              {...props}
+              onPress={() => {
+                fetchMe()
+                props.onPress();
+              }}
+            />
           ),
         }}
       />

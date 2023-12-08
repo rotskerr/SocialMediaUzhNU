@@ -55,4 +55,13 @@ export const getStyles = (theme) => StyleSheet.create({
     color: theme.colors.text,
     borderRadius: 10,
   },
+  Editbutton:{
+    width: "100%",
+    display: "flex",
+    justifyContent: "center",
+    color: theme.colors.text,
+    borderRadius: 10,
+    backgroundColor: theme.colors.primary,
+  },
+  
 });

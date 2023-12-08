@@ -1,30 +1,31 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { View, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ThemeContext, ThemeProvider } from "./utils/ThemeProvider";
 import MyTabs from "./src/components/HomePage/MyTabs";
+import { fetchMe } from "./utils/api";
+import AppNavigation from "./utils/AppNavigation";
 
 const App = () => {
-  // const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const fetchUser = async () => {
-      const user = await AsyncStorage.getItem("user");
-      // setUser(user);
+    const fetchProfile = async () => {
+      const dataString = await fetchMe();
+      //   await AsyncStorage.setItem("myProfileData", dataString);
+      //   const user = JSON.parse(dataString);
+      //   setUser(user);
     };
 
-    fetchUser();
+    fetchProfile();
   }, []);
 
   return (
     <ThemeProvider>
-      <NavigationContainer>
         <ThemedContainer>
           {/* {user ? <MyTabs /> : <SignUp />} */}
-          <MyTabs />
+          <AppNavigation />
         </ThemedContainer>
-      </NavigationContainer>
     </ThemeProvider>
   );
 };
