@@ -3,10 +3,11 @@ import { View, Text, Image, StyleSheet } from "react-native";
 import { Button } from "react-native-elements";
 import { ThemeContext } from "../../../utils/ThemeProvider";
 import { getStyles } from "../UserProfile/styles";
+import { useNavigation } from "@react-navigation/native";
 
 const UserProfileHeader = ({ user, userAvatarUrl, isCurrentUser }) => {
   const { theme } = useContext(ThemeContext);
-
+  const navigation = useNavigation();
   const styles = getStyles(theme);
 
   return (
@@ -32,7 +33,11 @@ const UserProfileHeader = ({ user, userAvatarUrl, isCurrentUser }) => {
       <View style={styles.buttonGroup}>
         {isCurrentUser ? (
           <View style={styles.Editbutton}>
-            <Button title="Edit Profile" buttonStyle={{ width: "100%" }} />
+            <Button
+              title="Edit Profile"
+              buttonStyle={{ width: "100%" }}
+              onPress={() => navigation.navigate("EditProfileScreen")}
+            />
           </View>
         ) : (
           <>

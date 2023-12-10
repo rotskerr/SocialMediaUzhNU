@@ -3,7 +3,6 @@ import { View, StyleSheet } from "react-native";
 import { Input, Button } from "react-native-elements";
 import { ThemeContext } from "../../../utils/ThemeProvider";
 import axios from 'axios';
-import Login from "../login/Login";
 import { createStackNavigator } from "@react-navigation/stack";
 
 const SignUpStack = createStackNavigator();
@@ -79,7 +78,6 @@ const SignUp = () => {
   return (
     <SignUpStack.Navigator screenOptions={{ headerShown: false }}>
       <SignUpStack.Screen name="SignUpScreen" component={SignUpScreen} />
-      <SignUpStack.Screen name="LoginScreen" component={Login} />
     </SignUpStack.Navigator>
   );
 };

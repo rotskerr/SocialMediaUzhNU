@@ -4,7 +4,6 @@ import { Input, Button } from "react-native-elements";
 import { ThemeContext } from "../../../utils/ThemeProvider";
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import SignUp from "../register/SignUp";
 import { createStackNavigator } from "@react-navigation/stack";
 
 const LoginStack = createStackNavigator();
@@ -75,8 +74,7 @@ function LoginScreen({ navigation }) {
 const Login = () => {
   return (
     <LoginStack.Navigator screenOptions={{ headerShown: false }}>
-      <LoginStack.Screen name="Login" component={LoginScreen} />
-      <LoginStack.Screen name="SignUp" component={SignUp} />
+      <LoginStack.Screen name="LoginScreen" component={LoginScreen} />
     </LoginStack.Navigator>
   );
 };
