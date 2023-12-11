@@ -9,13 +9,9 @@ const HeaderScreen = () => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate("Home", { screen: "Home" });
-        }}
-      >
+      <TouchableOpacity onPress={() => navigation.navigate("Home")}>
         <View>
-          <Text>Logo</Text>
+          <Text>Go to Home</Text>
         </View>
       </TouchableOpacity>
     </View>
